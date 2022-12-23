@@ -39,7 +39,6 @@
 
 </aside>
 
-![linux0.1.png](Born2beRoot%20b1ad7b208a0341a388c5c3e1f941cea4/linux0.1.png)
 
 ## Hard disk Partitions
 
@@ -90,9 +89,7 @@ Low-level package manager  ****is a free software interface that works with core
 
 **Aptitude:** A High-level package manager for Debian. It displays a list of software packages and allows the user to interactively pick packages to install or remove.
 
-![Apt-get_install_mediawiki.png](Born2beRoot%20b1ad7b208a0341a388c5c3e1f941cea4/Apt-get_install_mediawiki.png)
 
-![Aptitude.png](Born2beRoot%20b1ad7b208a0341a388c5c3e1f941cea4/Aptitude.png)
 
 **Sudo - Super User DO:**
 
@@ -264,66 +261,56 @@ wall 	"#Architectur : $(uname -a)
 '
 #Architectur :
 uname -a : #uname    -> print certain system information
-						#uname -a -> all information;
+#uname -a -> all information;
 
-#CPU physical : 
-nproc --all : #nproc -> print the number of processing units available to the current process
-								#--all -> print the number of installed processors
+#CPU physical : nproc --all : #nproc -> print the number of processing units available to the current process
+#--all -> print the number of installed processors
 
-#vCPU : 
-cat/proc/cpuinfo | grep processor | wc -l : 
-						#cat/proc/cpuinfo -> display the all cpu information.
-						#grep processor   -> display the line when the word "processe" exist.
-						# wc    -> select which counts are printed //newline, word, character, byte...
-						# wc -l -> print the newline counts.
+#vCPU : cat/proc/cpuinfo | grep processor | wc -l : 
+#cat/proc/cpuinfo -> display the all cpu information.
+#grep processor   -> display the line when the word "processe" exist.
+# wc    -> select which counts are printed //newline, word, character, byte...
+# wc -l -> print the newline counts.
 
-#Memory Usage : 
-free -m | grep Mem | awk '{printf("%d/%dMB (%.2f%%)\n" $3, $2, ($3/$2)*100)}'
-						#free -m  -> display the memory usage (-m ; Megabyte).
-						#grep Mem -> display the info from Mem (RAM memory).
-						# awk     -> Awk is a scripting language used for manipulating data / 
-													#and generating reports. The awk command programming language requires/ 
-													#no compiling and allows the user to use variables, numeric functions,/
-													#string functions, and logical operators.
-													#$**number** -> the value in columns position(number)
+#Memory Usage : free -m | grep Mem | awk '{printf("%d/%dMB (%.2f%%)\n" $3, $2, ($3/$2)*100)}'
+#free -m  -> display the memory usage (-m ; Megabyte).
+#grep Mem -> display the info from Mem (RAM memory).
+# awk     -> Awk is a scripting language used for manipulating data / 
+#and generating reports. The awk command programming language requires/ 
+#no compiling and allows the user to use variables, numeric functions,/
+#string functions, and logical operators.
+#$**number** -> the value in columns position(number)
 
-#Disk Usage : 
-df -BM --total | grep --total | awk '{printf"%d/%dGb (%d%%)\n", $3, $2/1024, $5}'
-						#df -> (short for disk free), is used to display information related to file /
-						#systems about total space and available space.
+#Disk Usage : df -BM --total | grep --total | awk '{printf"%d/%dGb (%d%%)\n", $3, $2/1024, $5}'
+#df -> (short for disk free), is used to display information related to file /
+#systems about total space and available space.
 
-#CPU load : 
-top -ibn 1 | grep Cpu |tr -d "%C():[a-z]," | awk '{printf"%.2f%%\n", 100 - $4}'
-						#top -> program used to show the active Linux processes.
-						#-ibn -> i:Idle-processe /b:Batch-mode operation /n:Number-of-iterations.
-						#"%C():[a-z]," -> delete all this caracters from the output
-						#100 - $4 			-> the $4 is the id "the idle cpu time" so 100 - $4 done the total of the cpu load.
+#CPU load : top -ibn 1 | grep Cpu |tr -d "%C():[a-z]," | awk '{printf"%.2f%%\n", 100 - $4}'
+#top -> program used to show the active Linux processes.
+#-ibn -> i:Idle-processe /b:Batch-mode operation /n:Number-of-iterations.
+#"%C():[a-z]," -> delete all this caracters from the output
+#100 - $4 			-> the $4 is the id "the idle cpu time" so 100 - $4 done the total of the cpu load.
 
-#Last boot : 
-who -b | awk '{print $3" "$4}'
-						#who -b  -> who: print info about users who are currently logged in 
-						#-b : time of last system boot.
+#Last boot : who -b | awk '{print $3" "$4}'
+#who -b  -> who: print info about users who are currently logged in 
+#-b : time of last system boot.
 
-#LVM use :
-$(if [ "$(lsblk | grep lvm | wc -l)" -gt 0 ] ; then printf "yes\n" ; else printf "no\n" ; fi)
-				#lsblk -> Display info about all partisions in the machine .
+#LVM use :$(if [ "$(lsblk | grep lvm | wc -l)" -gt 0 ] ; then printf "yes\n" ; else printf "no\n" ; fi)
+#lsblk -> Display info about all partisions in the machine .
 
-#Connection TCP : 
-ss -t | grep ESTAB | wc -l printf " ESTABLISHID"
-				#ss -> displays very detailed information about how a Linux machine is communicating/ 
-				#with other machines, networks, and services; and information about network /
-				#connections, networking protocol statistics, and Linux socket connections.
-				#-t -> tcp; Display TCP sockets.
+#Connection TCP : ss -t | grep ESTAB | wc -l printf " ESTABLISHID"
+#ss -> displays very detailed information about how a Linux machine is communicating/ 
+#with other machines, networks, and services; and information about network /
+#connections, networking protocol statistics, and Linux socket connections.
+#-t -> tcp; Display TCP sockets.
 
-#User log :
-who | cut -d " " -f 1 | sort -u | wc -l
-				# cut -> to display some information by spesific ordes
+#User log :who | cut -d " " -f 1 | sort -u | wc -l
+# cut -> to display some information by spesific ordes
 
-#Network :
-echo -n "ID " && hostname -I | tr "\n" " " && echo -n "(" && cat /sys/class/net/enp0s3/address | tr "\n" ")" && echo
-				#hostname -I : to display the hostname name
-				# I : display the hostname ID
-				# /sys/class/net/enp0s3/address : the file whish the adresse is 
+#Network :echo -n "ID " && hostname -I | tr "\n" " " && echo -n "(" && cat /sys/class/net/enp0s3/address | tr "\n" ")" && echo
+#hostname -I : to display the hostname name
+# I : display the hostname ID
+# /sys/class/net/enp0s3/address : the file whish the adresse is 
 ```
 
 ## Links:
